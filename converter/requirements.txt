@@ -2,3 +2,4 @@ requests
 icalendar
 python-dateutil
 python-dotenv
+typing_extensions

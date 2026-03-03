@@ -1,0 +1,31 @@
+#filtres {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 1rem;
+    border: 2px solid var(--fc-button-hover-bg-color);
+    border-radius: 16px;
+    background-color: #0003;
+}
+
+#filtres-liste {
+    display: flex;
+    overflow-x: scroll;
+    flex-grow: 100;
+    padding: 0.5em;
+}
+
+.filtres-bouton{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.1em;
+    margin-right: 0.5rem;
+    border-radius: 5px;
+    border: 2px solid #0000;
+}
+
+.filtres-bouton:hover{
+    cursor: pointer;
+    border-color: #ff6600ff;
+}

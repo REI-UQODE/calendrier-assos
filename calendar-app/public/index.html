@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr-CA">
+    <head>
+        <meta charset="utf-8">
+
+        <script type="module">
+            import {estSurMobile} from "/javascript/plateforme.js"
+            import {rediriger} from "/javascript/utilitaires.js"
+
+            if(estSurMobile()){
+                rediriger("/mobile/calendrier.html");
+            }else{
+                rediriger("/pc/calendrier.html");
+            }
+        </script>
+    </head>
     <body>
-        <script src="/pc-mobile-detect.js?=v5"></script>
         <p>
             Vous devriez être redirigé automatiquement.<br>
             <a href="/pc/calendrier.html">Cliquez ici si vous êtes sur PC</a><br>

@@ -1,239 +1,51 @@
-/* ==== Basics ==== */
-body {
-	font-family: Arial, sans-serif;
-	margin: 1rem;
-}
-
-#filters {
-	margin-bottom: 1rem;
-}
-
-#filters label {
-	margin-right: 1em;
-}
-
-#calendar {
-	max-width: 900px;
-	margin: 0 auto;
-}
-
 :root {
-	--pad: clamp(10px, 2.5vw, 20px);
-	--modal-w: min(960px, calc(100dvw - 2*var(--pad)));
-}
+	--couleur-principale: rgb(13, 25, 86);
+	--couleur-principale-lum-1: rgb(34, 69, 112);
+	--couleur-principale-lum-2: #485b7c;
+	--couleur-principale-sombre-1: rgb(35, 16, 78);
+	--couleur-principale-sombre-2: rgb(31, 6, 46);
 
-/* ==== Backdrop & shell ==== */
-#detailBackdrop {
-	display: none;
-	position: fixed;
-	inset: 0;
-	background: rgba(0, 0, 0, .5);
-	z-index: 900;
-}
+	--couleur-secondaire: rgb(229, 192, 72);
+	--couleur-secondaire-lum-1: rgb(240, 222, 178);
+	--couleur-secondaire-lum-2: rgb(249, 248, 228);
+	--couleur-secondaire-sombre-1: rgb(199, 141, 39);
+	--couleur-secondaire-sombre-2: rgb(137, 95, 36);
 
-body.modal-open {
-	overflow: hidden;
-}
+	--couleur-tertiaire: rgb(113, 70, 27);
+	--couleur-tertiaire-lum-1: rgb(253, 235, 211);
+	--couleur-tertiaire-lum-2: rgb(255, 255, 255);
+	--couleur-tertiaire-sombre-1: rgb(49, 28, 5);
+	--couleur-tertiaire-sombre-2: rgb(31, 11, 4);
 
-#detailModal {
-	display: none;
-	position: fixed;
-	inset: var(--pad);
-	width: var(--modal-w);
-	margin: 0 auto;
-	z-index: 1000;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+	--couleur-ombre: #0003;
+	--couleur-bordure-ombre: var(--couleur-ombre);
 
-	display: flex;
-	flex-direction: column;
-	max-height: calc(100dvh - 2*var(--pad));
-	overflow: hidden;
-	scrollbar-gutter: stable;
-}
+	--modale-arrière-plan: #0005;
 
-/* Header / Footer */
-.modal__header,
-.modal__footer {
-	flex: 0 0 auto;
-	position: sticky;
-	z-index: 1;
-	background: #fff;
-	padding: .75rem 1rem;
-}
+/*====== FullCalendar =======*/
+  	--fc-small-font-size: .85em;
+  	--fc-page-bg-color: var(--couleur-tertiaire-lum-2);
+  	--fc-neutral-bg-color: var(--couleur-tertiaire);
+  	--fc-neutral-text-color: var(--couleur-tertiaire-lum-1);
+  	--fc-border-color: var(--couleur-tertiaire-lum-1);
 
-.modal__header {
-	top: 0;
-	display: flex;
-	align-items: center;
-	gap: .5rem;
-	border-bottom: 1px solid #eee;
-}
+  	--fc-button-text-color: var(--couleur-tertiaire-lum-2);
+  	--fc-button-bg-color: var(--couleur-principale);
+  	--fc-button-border-color: transparent;
+  	--fc-button-hover-bg-color: var(--couleur-principale-sombre-1);
+  	--fc-button-hover-border-color: transparent;
+  	--fc-button-active-bg-color: var(--couleur-principale-sombre-2);
+  	--fc-button-active-border-color: transparent;
 
-.modal__footer {
-	bottom: 0;
-	border-top: 1px solid #eee;
-}
+  	--fc-event-resizer-thickness: 8px;
+  	--fc-event-resizer-dot-total-width: 8px;
+  	--fc-event-resizer-dot-border-width: 1px;
+  	--fc-bg-event-opacity: 0.3;
+  	--fc-highlight-color: color-mix(in srgb, var(--couleur-tertiaire-lum-2) 25%,transparent);
+  	--fc-today-bg-color: color-mix(in srgb, var(--couleur-principale) 25%,transparent);
 
-#detailModal button {
-	margin-left: auto;
-	font-size: 1.25rem;
-	line-height: 1;
-	background: transparent;
-	border: 0;
-	cursor: pointer;
-}
+  	--fc-daygrid-event-dot-width: 8px;
 
-/* Scrollable content */
-.modal__content {
-	flex: 1 1 auto;
-	overflow: auto;
-	padding: 1rem;
-	overscroll-behavior: contain;
-}
-
-/* Media & text constraints */
-#modalImage {
-	display: block;
-	width: 100%;
-	height: auto;
-	max-height: 40dvh;
-	object-fit: contain;
-	border-radius: 8px;
-	margin-top: .5rem;
-}
-
-#modalDesc {
-	white-space: pre-wrap;
-	line-height: 1.35;
-}
-
-/* ==== Desktop: real 2-column layout (poster | all text) ==== */
-@media (min-width:900px) {
-	#detailModal {
-		inset: unset;
-		top: max(8px, env(safe-area-inset-top) + 2px);
-		right: var(--pad);
-		bottom: var(--pad);
-		left: var(--pad);
-		max-height: calc(100dvh - (var(--pad) + 10px));
-	}
-
-	.modal__content {
-		display: grid;
-		grid-template-columns: minmax(280px, 40%) minmax(420px, 1fr);
-		column-gap: 1.25rem;
-		align-items: start;
-	}
-
-	/* Poster (left) */
-	#modalImage {
-		grid-column: 1;
-		grid-row: 1;
-		align-self: start;
-		margin-top: 0;
-		max-height: 70dvh;
-	}
-
-	/* Text block (right) */
-	#modalText {
-		grid-column: 2;
-		grid-row: 1;
-		align-self: start;
-		max-width: 64ch;
-	}
-
-	#modalText p {
-		display: grid;
-		grid-template-columns: 6.5rem 1fr;
-		column-gap: .6rem;
-		margin: 0 0 .45rem;
-		line-height: 1.35;
-	}
-
-	#modalText p strong {
-		font-weight: 600;
-	}
-
-	#modalDesc {
-		margin-top: .25rem;
-		line-height: 1.32;
-	}
-}
-
-/* ==== Mobile bottom-sheet ==== */
-@media (max-width:700px) {
-	#detailModal {
-		inset: auto 0 0 0;
-		height: min(90dvh, 720px);
-		width: 100dvw;
-		border-radius: 12px 12px 0 0;
-	}
-}
-
-/* ==== No-image: make dialog narrower + single column (desktop) ==== */
-@supports selector(:has(*)) {
-	@media (min-width:900px) {
-		#detailModal:has(#modalImage[style*="display: none"]) {
-			width: min(720px, calc(100dvw - 2*var(--pad)));
-		}
-
-		.modal__content:has(#modalImage[style*="display: none"]) {
-			display: block;
-		}
-	}
-}
-
-/* Make the modal scrollable if content is taller than the screen */
-#detailModal {
-	max-height: 90dvh;
-	/* cap to viewport height */
-	overflow-y: auto;
-	/* enable scrolling inside */
-}
-
-/* Prevent tall posters from overflowing the modal */
-#detailModal img {
-	display: block;
-	max-width: 100%;
-	height: auto;
-	max-height: 60dvh;
-	/* clamp portrait posters */
-	object-fit: contain;
-}
-
-/* Mobile: use a bottom-sheet style */
-@media (max-width: 700px) {
-	#detailModal {
-		top: 0;
-		left: 0;
-		transform: none;
-		width: 100vw;
-		max-height: 90dvh;
-		border-radius: 10px 10px 0 0;
-	}
-}
-
-/* Fix FullCalendar header toolbar buttons on mobile */
-.fc-toolbar-chunk {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.4rem;
-	/* spacing between buttons */
-	align-items: center;
-}
-
-.fc-toolbar-title {
-	font-size: 1.2rem;
-	/* shrink a bit for small screens */
-	text-align: center;
-}
-
-/* Optional: smaller buttons on narrow screens */
-@media (max-width: 600px) {
-	.fc-button {
-		font-size: 0.8rem;
-		padding: 4px 6px;
-	}
+  	--fc-list-event-dot-width: 10px;
+  	--fc-list-event-hover-bg-color: #f5f5f5;
 }

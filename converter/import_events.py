@@ -12,6 +12,8 @@ ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"}
 
 FILS_ICALENDAR = Path("/config/feeds.txt")
 SORTIE_ÉVÉNEMENTS = Path("calendar-app/public/events.json")
+SORTIE_ICAL = Path("calendar-app/public/abonnements/")
+ICAL_DOMAINE = "http://localhost:8081"
 SORTIE_IMAGES = Path("calendar-app/public/images/")
 RACINE_NEXTCLOUD = Path("/ncdata")
 
@@ -119,11 +121,12 @@ def main():
         try:
             resp = requests.get(url, timeout=20)
             resp.raise_for_status()
+            ical = resp.content.decode("utf8")
             cal = Calendar.from_ical(resp.content)
         except Exception as e:
             print(f"!! {assoc}: fetch/parse failed: {e}")
             continue
-        
+
         # Il se pourrait que le nom d'utilisateur Nextcloud soit différent du nom du calendrier. 
         # Nextcloud fournit le nom d'utilisateur dans le nom du calendrier, sous le format suivant : 
         # NOM_CAL (NOM_UTILISATEUR)
@@ -178,10 +181,35 @@ def main():
             events.append(e)
             counter += 1
 
+            # Enregistrer le calendrier
+            # Remplacer le répertoire des images
+            attachements = re.findall(r"FMTTYPE=image(?:\/|\w|-|_|\*)+;FILENAME=(?:\w|\/|-|\_|\.)+",ical)
+            if attachements is not None:
+                icalmod = ical
+                for attachement in attachements:
+                    print(attachements)
+                    fichier = attachement.split(";")[1].split("=")[1]
+                    dossier = SORTIE_IMAGES / (assoc + fichier.replace(".","_"))
+
+                    repertoire = None
+                    if dossier.exists():
+                        repertoire = ( dossier / ( os.listdir( dossier )[0] ) )
+                    else:
+                        repertoire = SORTIE_IMAGES / ( assoc + fichier )
+                    repertoire = ICAL_DOMAINE / repertoire
+
+                    icalmod = icalmod.replace(attachement,attachement.replace(fichier,str(repertoire)))
+                ical = icalmod
+
+            # Écrire le nouveau calendrier
+            with open(SORTIE_ICAL.joinpath(assoc+".ical"),'w') as f:
+                f.write(ical)
+
     with SORTIE_ÉVÉNEMENTS.open("w", encoding="utf-8") as f:
         json.dump(events, f, ensure_ascii=False, indent=2)
 
     print(f"Wrote {len(events)} events to {SORTIE_ÉVÉNEMENTS}")
+
     return 0
 
 if __name__ == "__main__":

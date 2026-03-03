@@ -6,9 +6,9 @@
 
     width:100%;
 
-    border: 2px solid var(--fc-button-hover-bg-color);
+    border: 2px solid var(--fc-button-bg-color);
     border-radius: 16px;
-    background-color: #0003;
+    background-color: var(--couleur-ombre);
 }
 
 #étiquette-filtres{
@@ -45,5 +45,5 @@
 
 .filtres-bouton:hover{
     cursor: pointer;
-    border-color: #ff6600ff;
+    border-color: var(--couleur-principale);
 }

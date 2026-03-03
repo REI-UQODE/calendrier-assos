@@ -3,7 +3,7 @@
     height: fit-content;
     padding: 0.2em;
     
-    background-color: #0003;
+    background-color: var(--couleur-ombre);
     border: 0.05em solid var(--fc-button-bg-color);
     border-radius: 0.25em;
 
@@ -39,7 +39,7 @@
     justify-content: center;
     align-items: center;
 
-    background-color: #0005;
+    background-color: var(--modale-arrière-plan);
 }
 
 #importation-modale-conteneur {
@@ -55,8 +55,8 @@
 
     border-radius: 2em;
 
-    background-image: radial-gradient(rgb(83, 68, 124), rgb(35, 25, 51));
-    box-shadow: 0 0 3em #003;
+    background-image: radial-gradient(var(--couleur-secondaire), var(--couleur-secondaire-sombre-1));
+    box-shadow: 0 0 3em var(--couleur-ombre);
 }
 
 #importation-modale-en-tête{
@@ -72,8 +72,8 @@
 
     padding : 1rem;
 
-    background-color: rgb(35, 25, 51);
-    border-bottom: 1px solid #0003;
+    background-color: var(--couleur-secondaire-sombre-1);
+    border-bottom: 1px solid var(--couleur-bordure-ombre);
     color: var(--fc-button-bg-color);
 }
 
@@ -88,8 +88,8 @@
     height: fit-content;
     width: fit-content;
 
-    background-color: #0000;
-    border: 0 solid #0000;
+    background-color: transparent;
+    border: 0;
     color: var(--fc-button-bg-color);
 
     cursor: pointer;
@@ -102,7 +102,7 @@
     margin: 1em;
 
     text-align: justify;
-    color: #e4a51c;
+    color: var(--couleur-principale-lum-1);
 }
 
 #importation-modale-instructions{
@@ -112,7 +112,7 @@
     background-color: var(--fc-button-bg-color);
     border: 0;
     border-radius: 0.5em;
-    box-shadow: 0 0 0.5em #0003;
+    box-shadow: 0 0 0.5em var(--couleur-ombre);
     cursor: pointer;
 }
 
@@ -129,7 +129,7 @@
 
 li {
     margin: 1em;
-    color: #e4a51c;
+    color: var(--couleur-principale-lum-1);
 }
 
 li button{
@@ -144,12 +144,12 @@ li button{
     width: fit-content;
 
     font-size: 1em;
-    color: #e4a51c;
+    color: var(--couleur-principale-lum-1);
     
-    background-color: #4443;
+    background-color: color-mix(in srgb, var(--couleur-tertiaire) 30%, transparent);
     border: 2px solid #0006;
     border-radius: 0.5em;
-    box-shadow: 0 0 1em #0003;
+    box-shadow: 0 0 1em var(--couleur-ombre);
     cursor: pointer;
 }
 
@@ -162,17 +162,16 @@ li button .asso{
     padding: 0.2em;
 
     font-weight: bold;
-    color: black;
-    background-color: red;
+    color: var(--couleur-tertiaire-sombre-2);
     border-radius: 0.25em;
 }
 
 li button .copie{
     padding: 0.5em;
 
-    background-color: #111;
+    background-color: var(--couleur-tertiaire-sombre-1);
     border-radius: 0.5em;
-    box-shadow: 0 0 0.5em #0003;
+    box-shadow: 0 0 0.5em var(--couleur-ombre);
 }
 
 li button *{

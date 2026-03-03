@@ -5,9 +5,9 @@
     margin: 1rem;
     width: 100%;
 
-    border: 6px solid var(--fc-button-hover-bg-color);
+    border: 6px solid var(--fc-button-bg-color);
     border-radius: 16px;
-    background-color: #0003;
+    background-color: var(--couleur-ombre);
 
     font-size: 2.5em;
 }
@@ -43,9 +43,8 @@
     padding: 0.3em;
     margin-right: 1em;
     border-radius: 10%;
-    border: 15px solid #0000;
 }
 
 .filtres-bouton:hover{
-    border-color: #ff6600ff;
+    border-color: var(--couleur-principale);
 }

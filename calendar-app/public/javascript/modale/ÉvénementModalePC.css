@@ -22,7 +22,7 @@
     justify-content: center;
     align-items: center;
 
-    background-color: #0005;
+    background-color: var(--modale-arrière-plan);
 }
 
 #événement-modale-conteneur {
@@ -53,7 +53,7 @@
     padding : 1rem;
 
     background-color: #FFF;
-    border-bottom: 1px solid #0003;
+    border-bottom: 1px solid var(--couleur-bordure-ombre);
 }
 
 #événement-modale-titre{
@@ -67,8 +67,8 @@
     height: fit-content;
     width: fit-content;
 
-    background-color: #0000;
-    border: 0 solid #0000;
+    background-color: transparent;
+    border: 0;
 
     cursor: pointer;
 }
@@ -157,7 +157,7 @@
     bottom: 0;
     padding: 1em;
 
-    border-top: 1px solid #0003;
+    border-top: 1px solid var(--couleur-bordure-ombre);
 }
 
 #événement-modale-bouton-inscription{
@@ -166,14 +166,14 @@
 
     cursor: pointer;
 
-    background-color: #e21d37;
+    background-color: var(--couleur-principale);
 
-    border: 2px solid #a10000;
+    border: 6px solid var(--couleur-principale-sombre-1);
     border-radius: 8px;
 }
 
 #événement-modale-bouton-inscription:hover{
-    background-color: #5c6ae4;
-    border-color: #01119b;
-    color:  white;
+    background-color: var(--couleur-secondaire);
+    border-color: var(--couleur-secondaire-sombre-1);
+    color:  var(--couleur-tertiaire-lum-2);
 }

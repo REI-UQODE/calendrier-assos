@@ -8,20 +8,21 @@
         
         <script src="/vendor/fullcalendar/index.global.min.js?=v5" defer></script>
 	    <!-- <script src="/vendor/fullcalendar/locales-all.global.min.js" defer></script> -->
-        <script src="/javascript/pc-mobile-detect.js?=v5"></script>
-        <script src="/javascript/fullcalendar.js?=v5"></script>
+        <script type="module" src="/javascript/fullcalendar.js?=v5"></script>
+        <script type="module" src="/javascript/init-commun.js"></script>
     </head>
     <body>
 
         <div id="app">
-            <div id="filtres-conteneur">
-                <div id="étiquette-filtres">Filtres :</div>
-                <div id="filtres">Chargement des filtres</div>
+            <div style="display: flex; flex-direction: row; align-items: center;">
+                <div id="filtres"></div>
+                <button id="importation-modale-ouvrir">📥</button>
             </div>
             <div id="calendrier"></div>
         </div>
 
         <!-- Backdrop & Modal -->
         <div id="événement-fenêtre-modale" style="display: none;"></div>
+        <div id="importation-modale" style="display: none;"></div>
     </body>
 </html>

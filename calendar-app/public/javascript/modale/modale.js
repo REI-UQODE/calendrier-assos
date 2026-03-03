@@ -248,7 +248,7 @@ export class ImportationModale extends Modale{
             const copie = bouton.getElementsByClassName("copie")[0];
             const lien = bouton.getElementsByTagName("p")[0];
 
-            bouton.addEventListener("click", () => this.miseÀJourCopie(item));
+            bouton.addEventListener("click", () => {this.miseÀJourCopie(item);});
             nom.textContent = asso;
             nom.style.backgroundColor = assocColors[asso];
             nom.style.boxShadow = "0.2em 0.3em 0 "+luminositéCouleur(assocColors[asso], -40);
@@ -261,12 +261,17 @@ export class ImportationModale extends Modale{
     }
 
     miseÀJourCopie(item){
+
         this.#items.forEach(i => {
             if (i !== item){
                 i.childNodes[0].getElementsByClassName("copie")[0].textContent = '📋';
             }else{
                 i.childNodes[0].getElementsByClassName("copie")[0].textContent = '✔';
-                navigator.clipboard.writeText( i.childNodes[0].getElementsByTagName("p")[0].textContent );
+                try{
+                    navigator.clipboard.writeText( i.childNodes[0].getElementsByTagName("p")[0].textContent );
+                }catch(e){
+                    alert("Une erreur est survenue dans la copie de l'URL. Voici le texte à copier : \n\n"+i.childNodes[0].getElementsByTagName("p")[0].textContent+"\n\nVoici l'erreur :\n\n"+e);
+                }
             }
         });
     }

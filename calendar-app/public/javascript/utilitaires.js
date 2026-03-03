@@ -4,8 +4,11 @@
  * @param {string} url chemin absolu de la nouvelle page.
  */
 export function rediriger(url){
-    let domaine = location.protocol+"//"+location.hostname+":"+location.port;
-    location.replace(domaine+url);
+  if (location.pathname === url){
+    return;
+  }
+  let domaine = location.protocol+"//"+location.hostname+":"+location.port;
+  location.replace(domaine+url);
 }
 
 // Prend un string représentant une couleur et renvoie une liste sur le format RGB 0-255

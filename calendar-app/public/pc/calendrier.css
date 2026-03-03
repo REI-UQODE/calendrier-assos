@@ -22,21 +22,6 @@ body {
     box-sizing: border-box;
 }
 
-#étiquette-filtres{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4em;
-    margin-right: 1em;
-    width: fit-content;
-
-    border-radius: 4px;
-
-    background-color: var(--fc-button-bg-color);
-    color: var(--fc-button-text-color);
-    font-weight: bold;
-}
-
 /* === Propriétés du calendrier FullCalendar === */
 
 #calendrier {

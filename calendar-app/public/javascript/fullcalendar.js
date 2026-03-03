@@ -1,5 +1,5 @@
 import { Filtres } from "/javascript/filtres/filtres.js";
-import { ÉvénementModale } from "/javascript/modale/modale.js"
+import { ÉvénementModale,ImportationModale } from "/javascript/modale/modale.js"
 
 async function trouverURLImage(url){
   if (!url){
@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let assocColors = {};
   const LOCALE = 'fr-CA';
   const calEl = document.getElementById('calendrier');
-  const modale = new ÉvénementModale("événement-fenêtre-modale");
+  const événementModale = new ÉvénementModale("événement-fenêtre-modale");
+  const importationModale = new ImportationModale("importation-modale");
   const filtres = new Filtres();
 
   // Load colors then events
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         eventsData = eventsData.filter( e => e===null?false:true );
         filtres.initialiserListe(eventsData, assocColors);
+        importationModale.initListe(eventsData, assocColors);
       }
 
       // Calendar
@@ -122,13 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
             "couleur": assocColors[e.extendedProps.association],
           }
 
-          modale.changerContenu(modaleContenu);
-          modale.ouvrir();
+          événementModale.changerContenu(modaleContenu);
+          événementModale.ouvrir();
         }
       });
 
       calendar.render();
     })
     .catch(err => console.error('Loading error:', err));
+
+    document.getElementById("importation-modale-ouvrir").addEventListener("click", () => importationModale.ouvrir());
 });
 

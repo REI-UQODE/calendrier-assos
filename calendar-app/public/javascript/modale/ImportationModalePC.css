@@ -1,0 +1,177 @@
+#importation-modale-ouvrir{
+    font-size: 2em;
+    height: fit-content;
+    padding: 0.2em;
+    
+    background-color: #0003;
+    border: 2px solid var(--fc-button-bg-color);
+    border-radius: 0.25em;
+
+    cursor: pointer;
+}
+
+#importation-modale-ouvrir:hover{
+    background-color: #fff3;
+}
+
+#importation-modale {
+    display: flex;
+    z-index: 900;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: transparent;
+}
+
+#importation-modale-arrière-plan {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: #0005;
+}
+
+#importation-modale-conteneur {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 2em;
+    max-width: 95vw;
+    min-width: 80vw;
+    overflow-x: hidden;
+    max-height: 95vh;
+    overflow-y: scroll;
+
+    border-radius: 12px;
+
+    background-image: radial-gradient(rgb(83, 68, 124), rgb(35, 25, 51));
+    box-shadow: 0 0 3em #003;
+}
+
+#importation-modale-en-tête{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+
+    padding : 1rem;
+
+    background-color: rgb(35, 25, 51);
+    border-bottom: 1px solid #0003;
+    color: var(--fc-button-bg-color);
+}
+
+#importation-modale-en-tête h2{
+    margin-top : 0;
+    margin-bottom: 0;
+}
+
+#importation-modale-en-tête button{
+    font-size: 2em;
+    padding: 0.1em;
+    height: fit-content;
+    width: fit-content;
+
+    background-color: #0000;
+    border: 0 solid #0000;
+    color: var(--fc-button-bg-color);
+
+    cursor: pointer;
+}
+
+#importation-modale-contenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10em;
+    margin-right: 10em;
+
+    text-align: justify;
+    color: #e4a51c;
+}
+
+#importation-modale-instructions{
+    padding: 0.25em;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: var(--fc-button-bg-color);
+    border: 0;
+    border-radius: 0.5em;
+    box-shadow: 0 0 0.5em #0003;
+    cursor: pointer;
+}
+
+#importation-modale-instructions:hover{
+    background-color: var(--fc-button-hover-bg-color);
+}
+
+#importation-modale-liste{
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    margin: 1em;
+    color: #e4a51c;
+}
+
+li button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: fit-content;
+    max-width: 100%;
+
+    font-size: 1em;
+    color: #e4a51c;
+    
+    background-color: #4443;
+    border: 2px solid #0006;
+    border-radius: 0.5em;
+    box-shadow: 0 0 1em #0003;
+    cursor: pointer;
+}
+
+li button:hover{
+    background-color: #2226;
+}
+
+li button .asso{
+    margin: 0.5em;
+    padding: 0.2em;
+
+    font-weight: bold;
+    color: black;
+    background-color: red;
+    border-radius: 0.25em;
+}
+
+li button .copie{
+    padding: 0.5em;
+
+    background-color: #111;
+    border-radius: 0.5em;
+    box-shadow: 0 0 0.5em #0003;
+}
+
+li button *{
+    margin: 5px;
+}

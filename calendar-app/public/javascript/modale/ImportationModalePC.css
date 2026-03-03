@@ -110,6 +110,7 @@
     background-color: var(--fc-button-bg-color);
     border: 0;
     border-radius: 0.5em;
+    color: white;
     box-shadow: 0 0 0.5em var(--couleur-ombre);
     cursor: pointer;
 }

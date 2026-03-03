@@ -1,21 +1,21 @@
 :root {
-	--couleur-principale: rgb(9, 138, 213);
-	--couleur-principale-lum-1: rgb(61, 186, 239);
-	--couleur-principale-lum-2: rgb(98, 228, 245);
-	--couleur-principale-sombre-1: rgb(51, 77, 180);
-	--couleur-principale-sombre-2: rgb(43, 62, 140);
+	--couleur-principale: rgb(13, 25, 86);
+	--couleur-principale-lum-1: rgb(34, 69, 112);
+	--couleur-principale-lum-2: #485b7c;
+	--couleur-principale-sombre-1: rgb(35, 16, 78);
+	--couleur-principale-sombre-2: rgb(31, 6, 46);
 
-	--couleur-secondaire: rgb(112, 143, 98);
-	--couleur-secondaire-lum-1: rgb(159, 182, 130);
-	--couleur-secondaire-lum-2: rgb(192, 208, 173);
-	--couleur-secondaire-sombre-1: rgb(27, 72, 27);
-	--couleur-secondaire-sombre-2: rgb(35, 59, 40);
+	--couleur-secondaire: rgb(229, 192, 72);
+	--couleur-secondaire-lum-1: rgb(240, 222, 178);
+	--couleur-secondaire-lum-2: rgb(249, 248, 228);
+	--couleur-secondaire-sombre-1: rgb(199, 141, 39);
+	--couleur-secondaire-sombre-2: rgb(137, 95, 36);
 
-	--couleur-tertiaire: rgb(132, 126, 123);
-	--couleur-tertiaire-lum-1: rgb(198, 198, 198);
+	--couleur-tertiaire: rgb(113, 70, 27);
+	--couleur-tertiaire-lum-1: rgb(253, 235, 211);
 	--couleur-tertiaire-lum-2: rgb(255, 255, 255);
-	--couleur-tertiaire-sombre-1: rgb(84, 78, 75);
-	--couleur-tertiaire-sombre-2: rgb(26, 17, 14);
+	--couleur-tertiaire-sombre-1: rgb(49, 28, 5);
+	--couleur-tertiaire-sombre-2: rgb(31, 11, 4);
 
 	--couleur-ombre: #0003;
 	--couleur-bordure-ombre: var(--couleur-ombre);

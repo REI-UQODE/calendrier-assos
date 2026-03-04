@@ -1,0 +1,291 @@
+const fenêtreContextuelleMinimiséeEvent = new Event("fenêtreContextuelleMinimiséeEvent");
+
+function closeModal() {
+  document.getElementById('detailModal').style.display = 'none';
+  document.getElementById('detailBackdrop').style.display = 'none';
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', escHandler);
+  document.dispatchEvent(fenêtreContextuelleMinimiséeEvent);
+}
+function escHandler(e){ if (e.key === 'Escape') closeModal(); }
+
+let eventsData = [];
+let assocColors = {};
+const LOCALE = 'fr-CA';
+
+function boutonCurseurEntré(bouton){
+  bouton.style.borderColor = "#ff6600ff";
+}
+
+function boutonCurseurSortis(bouton){
+  bouton.style.borderColor = "#0000";
+}
+
+function boutonClique(bouton){
+  console.log("clique");
+  if (bouton.getAttribute("data-checked") === "true"){
+    bouton.setAttribute("data-checked", false);
+    bouton.style.opacity = "0.5";
+  }else {
+    bouton.setAttribute("data-checked", true);
+    bouton.style.opacity = "1";
+  }
+
+  calendar.refetchEvents();
+}
+
+function miseÀJourImageEnsembleSrc(image, ensembleSrc){
+  const largeur = image.parentNode.clientWidth - parseFloat(window.getComputedStyle(image.parentNode).paddingLeft) - parseFloat(window.getComputedStyle(image.parentNode).paddingRight);
+  for (i = 0; i < ensembleSrc.length; i++){
+    if (ensembleSrc[i][0] < largeur){
+      image.src = ensembleSrc[Math.max(i-1,0)][2];
+      console.log("Image taille : "+ensembleSrc[Math.max(i-1,0)][0]+"x"+ensembleSrc[Math.max(i-1,0)][1]);
+      return;
+    }
+  }
+  image.src = ensembleSrc[ensembleSrc.length-1][2];
+  console.log("Image taille : "+ensembleSrc[Math.max(i-1,0)][0]+"x"+ensembleSrc[Math.max(i-1,0)][1]);
+}
+
+// Prend un string représentant une couleur et renvoie une liste sur le format RGB 0-255
+function lireCouleur(couleur){
+  RGB = [0,0,0]
+
+  // Extraire les valeurs RGB en format #RRGGBB ou rgb(r, g, b)
+  if (couleur[0] === "#"){
+    RGB[0] = parseInt(couleur.substring(1,3),16);
+    RGB[1] = parseInt(couleur.substring(3,5),16);
+    RGB[2] = parseInt(couleur.substring(5,7),16);
+  } else {
+    numéros = couleur.split("(")[1].split(")")[0].replace(" ","").split(","); // "rgb(A, B, C)"" → [A,B,C]
+    RGB[0] = parseFloat(numéros[0])*255;
+    RGB[1] = parseFloat(numéros[1])*255;
+    RGB[2] = parseFloat(numéros[2])*255;
+  }
+
+  return RGB;
+}
+
+// Prend une liste sur le format RGB 0-255 et renvoie un string sur le format #RRGGBB
+function RGB2String(RGB){
+  rgb = RGB;
+
+  rgb[0] = Math.round(rgb[0]).toString(16);
+  rgb[1] = Math.round(rgb[1]).toString(16);
+  rgb[2] = Math.round(rgb[2]).toString(16);
+
+  rgb[0] = ( rgb[0].length == 1 )? "0"+rgb[0] : rgb[0];
+  rgb[1] = ( rgb[1].length == 1 )? "0"+rgb[1] : rgb[1];
+  rgb[2] = ( rgb[2].length == 1 )? "0"+rgb[2] : rgb[2];
+
+  return "#"+rgb[0]+rgb[1]+rgb[2];
+}
+
+// Modifie la luminosité d'une couleur
+function luminositéCouleur(couleur, lumPourcent){
+  RGB = lireCouleur(couleur);
+
+  // Manipulation
+  RGB[0] = RGB[0] * (100 + lumPourcent) / 100;
+  RGB[1] = RGB[1] * (100 + lumPourcent) / 100;
+  RGB[2] = RGB[2] * (100 + lumPourcent) / 100;
+
+  // Limitation en-dessous de 255
+  RGB[0] = RGB[0]<255? RGB[0] : 255;
+  RGB[1] = RGB[1]<255? RGB[1] : 255;
+  RGB[2] = RGB[2]<255? RGB[2] : 255;
+
+  return RGB2String(RGB);
+}
+
+async function importerImage(url, image){
+  image.removeEventListener
+
+  if (!url){
+    image.style.display = 'none';
+    return;
+  }
+
+  const parties = url.split("/");
+  if (parties[parties.length - 1] !== "tailles.txt"){
+    image.src = url;
+    image.style.display = 'block';
+  }else{
+    try{
+      const ext = parties[parties.length - 2].split("_").at(-1);
+      const nom = parties[parties.length - 2].substring(0, parties[parties.length - 2].length - ext.length - 1);
+      const rép = url.substring(0, url.length - parties[parties.length - 1].length - 1);
+      const réponse = await fetch(url);
+      if (!réponse.ok){
+        throw new Error("Impossible de télécharger le registres de tailles de "+parties[parties.length-2]);
+      }
+
+      const contenus = await réponse.text();
+      const lignes = contenus.split("\n");
+      ensembleSrc = []
+      for (i = 0; i < lignes.length; i++){
+        if (lignes[i].length == 0){
+          continue;
+        }
+        nombres = lignes[i].split("x");
+        source = rép + "/" + nom + "-" + nombres[0] + "." + ext;
+        ensembleSrc.push( [parseInt(nombres[0]), parseInt(nombres[1]), source] );
+      }
+      function appelerFonction(){ miseÀJourImageEnsembleSrc(image,ensembleSrc); }
+      function retirerÉvénements(){ image.removeEventListener("resize",appelerFonction); image.removeEventListener("fenêtreContextuelleMinimiséeEvent", retirerÉvénements); }
+      new ResizeObserver(appelerFonction).observe(image);
+      image.addEventListener("fenêtreContextuelleMinimiséeEvent", retirerÉvénements);
+      appelerFonction();
+
+    }catch(error){
+      console.error(error.message);
+      image.style.display = 'none';
+      return;
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Always start closed (covers reloads + bfcache restores)
+  closeModal();
+  document.getElementById("detailModal").addEventListener("click", e => {e.stopImmediatePropagation();});
+
+  const filtersEl = document.getElementById('filtres');
+  const calEl = document.getElementById('calendrier');
+
+  // Load colors then events
+  fetch('/assoc-colors.json', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(colors => {
+      assocColors = colors;
+      return fetch('/events.json', { cache: 'no-store' }).then(r => r.json());
+    })
+    .then(data => {
+
+      if (!(data instanceof Array)){
+
+        console.error("Le fichier 'events.json' n'est pas bien construit.");
+        filtersEl.innerHTML = '';
+        eventsData = [];
+      } else {
+
+        eventsData = data.map(e => {
+          try {
+            const c = assocColors[e.extendedProps.association] || '#3788d8';
+            return { ...e, backgroundColor: c, borderColor: c };
+          } catch {
+            console.error("Événement mal formé.");
+            return null;
+          }
+        });
+
+        eventsData = eventsData.filter( e => e===null?false:true );
+
+        // Filters
+        // Extrait la liste d'association de la liste des événement. Ainsi, une association qui n'a pas d'événements n'aura pas de bouton de filtre en haut.
+        const assocs = Array.from(new Set(eventsData.map(e => e.extendedProps.association)));
+        filtersEl.innerHTML = '';
+        assocs.forEach(assoc => {
+
+          if(!Object.keys(assocColors).includes(assoc)){
+            console.error("L'association "+assoc+" n'a pas de couleur associée. Le nom du calendrier correspond-il à la clé du dictionnaire dans 'assoc-colors.json'?");
+            return;
+          }
+
+          const id = `f-${assoc}`;
+          const cb = document.createElement('div');
+          cb.id = id;
+          cb.setAttribute("data-checked",true);
+          cb.classList.add("filtres-bouton");
+          cb.innerText = assoc;
+          cb.style.background = assocColors[assoc];
+          cb.style.boxShadow = "0.2em 0.3em 0 "+luminositéCouleur(assocColors[assoc],-40);
+
+          filtersEl.append(cb);
+
+          cb.addEventListener('change', () => calendar.refetchEvents());
+          cb.addEventListener('mouseenter', () => boutonCurseurEntré(cb));
+          cb.addEventListener('mouseleave', () => boutonCurseurSortis(cb));
+          cb.addEventListener('click', () => boutonClique(cb));
+        });
+      }
+
+      // Calendar
+      window.calendar = new FullCalendar.Calendar(calEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' },
+        locale: 'fr',
+        firstDay: 1,
+        buttonText: { today:'Aujourd’hui', month:'Mois', week:'Semaine', day:'Jour', list:'Liste' },
+        weekText: 'Sem.',
+        allDayText: 'Toute la journée',
+        noEventsText: 'Aucun événement à afficher',
+
+        eventSources: [{
+          events: (info, success) => {
+            const chosen = Array.from(filtersEl.querySelectorAll("[data-checked='true']")).map(cb => cb.innerText);
+            success(eventsData.filter(e => chosen.includes(e.extendedProps.association)));
+          }
+        }],
+
+        eventClick: info => {
+          const e = info.event;
+
+          const fmtDate = d => d?.toLocaleDateString(LOCALE, { year:'numeric', month:'long', day:'numeric' });
+          const fmtTime = d => d?.toLocaleTimeString(LOCALE, { hour:'2-digit', minute:'2-digit' });
+          const sameDay = e.end && e.start && e.start.toDateString() === e.end.toDateString();
+
+          // Title
+          document.getElementById('modalTitle').textContent = e.title;
+
+          // Date row
+          const dateStr = e.allDay
+            ? fmtDate(e.start)
+            : (e.end && !sameDay ? `${fmtDate(e.start)} → ${fmtDate(e.end)}` : fmtDate(e.start));
+          document.getElementById('modalDate').textContent = dateStr;
+
+          // Time row
+          const timeStr = e.allDay
+            ? 'Toute la journée'
+            : `${fmtTime(e.start)}${e.end ? ` → ${fmtTime(e.end)}` : ''}`;
+          document.getElementById('modalTime').textContent = timeStr;
+
+          // Location + Description
+          document.getElementById('modalLocation').textContent = e.extendedProps.location || '—';
+          document.getElementById('modalDesc').textContent = e.extendedProps.description || '';
+
+          // Poster
+          importerImage(e.extendedProps.image, document.getElementById("modalImage"));
+
+          // Link
+          const link = document.getElementById('lienInscription');
+          const href = e.extendedProps.registrationLink || e.url;
+          if (href) { link.href = href; link.style.display = 'inline-block'; }
+          else { link.style.display = 'none'; }
+
+          // couleurs
+          const arrièrePlan = document.getElementById('detailModal');
+          const coulLumineux = luminositéCouleur(assocColors[e.extendedProps.association],10);
+          const coulSombre = luminositéCouleur(assocColors[e.extendedProps.association],-10);
+          arrièrePlan.style.background = "repeating-linear-gradient(-45deg, "+coulLumineux+" 0px,"+coulLumineux+" 40px,"+coulSombre+" 40px,"+coulSombre+" 80px)";
+
+          const header = document.getElementById('modal_header');
+          header.style.backgroundColor = luminositéCouleur(assocColors[e.extendedProps.association], 40);
+          
+          const footer = document.getElementById('modal_footer');
+          footer.style.backgroundColor = luminositéCouleur(assocColors[e.extendedProps.association], 40);
+
+          // Show modal
+          document.getElementById('detailBackdrop').style.display = 'flex';
+          arrièrePlan.style.display = 'flex';
+          document.body.classList.add('modal-open');
+          document.getElementById('detailContent').scrollTop = 0;
+          document.addEventListener('keydown', escHandler);
+        }
+      });
+
+      calendar.render();
+    })
+    .catch(err => console.error('Loading error:', err));
+});
+

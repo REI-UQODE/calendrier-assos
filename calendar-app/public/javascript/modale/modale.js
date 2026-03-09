@@ -238,7 +238,7 @@ export class ImportationModale extends Modale{
                 return;
             }
 
-            const url = domaine+"/abonnement/"+asso+".ical"
+            const url = domaine+"/abonnements/"+asso+".ical"
             
             const item = document.createElement("li");
             item.innerHTML = itemModèle;

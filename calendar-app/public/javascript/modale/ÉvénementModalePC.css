@@ -80,9 +80,22 @@
     margin: 1em;
 }
 
+#événement-modale-image-conteneur{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 1rem;
+}
+
 @media screen and (min-aspect-ratio: 1) {
     #événement-modale-contenu{
         flex-direction: row;
+    }
+
+    #événement-modale-image-conteneur{
+        position: sticky;
+        top: 6em;
     }
 }
 
@@ -90,14 +103,10 @@
     #événement-modale-contenu{
         flex-direction: column;
     }
-}
 
-#événement-modale-image-conteneur{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin: 1rem;
+    #événement-modale-image-conteneur{
+        position: static;
+    }
 }
 
 #événement-modale-image{
@@ -109,7 +118,7 @@
     flex-direction: column;
     padding: 1em;
 
-    background-color: #fff4;
+    background-color: #fff7;
     border-radius: 8px;
     min-width: 30vw;
 }
@@ -176,4 +185,78 @@
     background-color: var(--couleur-secondaire);
     border-color: var(--couleur-secondaire-sombre-1);
     color:  var(--couleur-tertiaire-lum-2);
+}
+
+/* ============
+ * | MARKDOWN |
+ * ============
+ */
+
+.markdown{}
+
+.markdown p {
+    margin: 0;
+}
+
+.markdown code {
+    padding: 0.25em 0.5em;
+    background-color: #a1b3b86e;
+    border: 1px solid #a1b3b8;
+    border-radius: 0.5em;
+}
+
+.markdown pre {
+    padding: 0.5em 1em;
+    max-height: 80vh;
+    background-color: #a1b3b86e;
+    border: 2px solid #a1b3b8;
+    border-radius: 0.5em;
+    overflow: scroll;
+}
+
+.markdown pre code {
+    background-color: transparent;
+    border: transparent;
+    border-radius: 0.5em;
+}
+
+.markdown li{
+    margin: 0;
+}
+
+.markdown ul, .markdown ol{
+    margin: 0;
+}
+
+.markdown blockquote{
+    margin: 0;
+    padding: 1em;
+    background-color: #758c8e70;
+    border-radius: 0.5em;
+    border-left: 0.5em solid #758c8e;
+}
+
+.markdown table{
+    display: block;
+    max-height: 80vh;
+    height: fit-content;
+    border-collapse: collapse;
+    background-color: transparent;
+    overflow: scroll;
+}
+
+.markdown table *{
+    margin: 0;
+    color: black;
+    border: 1px solid black;
+    background-color: transparent;
+}
+
+.markdown p:has(img){
+    max-height: 50vh;
+}
+
+.markdown p img{
+    max-width: 100%;
+    max-height: 50vh;
 }

@@ -158,7 +158,7 @@ def main():
                 img_rel = None
 
             lien_inscription = None
-            mots = re.split("[ \n\t\(\)\{\}\[\]]",desc)
+            mots = re.split("[ \n\t()\{\}[]]",desc)
             for m in mots:
                 if m.startswith("http://") or m.startswith("https://"):
                     lien_inscription = m
@@ -171,7 +171,7 @@ def main():
                 "allDay": not isinstance(dtstart, datetime),
                 "extendedProps": {
                     "association": assoc,
-                    "description": str(vevent.get("description", "")),
+                    "description": desc,
                     "location":    str(vevent.get("location", "")),
                     "image": img_rel,
                     "registrationLink": lien_inscription

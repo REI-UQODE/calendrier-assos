@@ -5,6 +5,15 @@ export const modaleFerméeEvent = new Event("modaleFerméeEvent");
 
 export class Modale{
     static modèle = null;
+    static showdownjs = new showdown.Converter(
+        { 
+            simplifiedAutoLink : true, 
+            literalMidWordUnderscores : true,
+            strikethrough : true,
+            tables : true,
+            tasklists : true,
+            emoji : true,
+        });
 
     estOuverte = false;
 
@@ -22,7 +31,6 @@ export class Modale{
             await fetch(url).then(r => r.text())
                 .then(données => {
                     this.modèle = données;
-                    
                 });
         }
         return this.modèle;
@@ -124,11 +132,11 @@ export class ÉvénementModale extends Modale{
     }
 
     changerContenu(contenu){
-        this.#titre.textContent              = "titre"               in contenu? contenu["titre"]            : "";
-        this.#date.textContent               = "date"                in contenu? contenu["date"]             : "";
-        this.#heure.textContent              = "heure"               in contenu? contenu["heure"]            : "";
-        this.#adresse.textContent            = "adresse"             in contenu? contenu["adresse"]          : "";
-        this.#description.textContent        = "description"         in contenu? contenu["description"]      : "";
+        this.#titre.textContent         = "titre"       in contenu? contenu["titre"]        : "";
+        this.#date.textContent          = "date"        in contenu? contenu["date"]         : "";
+        this.#heure.textContent         = "heure"       in contenu? contenu["heure"]        : "";
+        this.#adresse.textContent       = "adresse"     in contenu? contenu["adresse"]      : "";
+        this.#description.innerHTML     = "description" in contenu? Modale.showdownjs.makeHtml(contenu["description"])  : "";
 
         if("image" in contenu && contenu["image"]){
             if (typeof contenu["image"] === "string"){

@@ -23,6 +23,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   
+  cloudflare:
+    image: cloudflare/cloudflared
+    env_file: .env
+    command: "tunnel run"
+    networks:
+      - web
+
   db:
     image: mariadb:10.11
     labels:

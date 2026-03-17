@@ -140,6 +140,7 @@
 
     cursor: pointer;
 
+    color: var(--couleur-secondaire);
     background-color: var(--couleur-principale);
 
     border: 6px solid var(--couleur-principale-sombre-1);

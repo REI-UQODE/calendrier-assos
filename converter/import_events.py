@@ -158,10 +158,11 @@ def main():
                 img_rel = None
 
             lien_inscription = None
-            mots = re.split("[ \n\t()\{\}[]]",desc)
-            for m in mots:
-                if m.startswith("http://") or m.startswith("https://"):
-                    lien_inscription = m
+            mots = re.findall(r"(!?\[.*]\()?https?:\/\/.+\)?",desc)
+            if mots:
+                for m in mots:
+                    if not m.startswith('!'):
+                        lien_inscription = m
 
             e = {
                 "id":     str(counter),

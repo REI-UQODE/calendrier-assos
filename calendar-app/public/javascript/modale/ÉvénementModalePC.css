@@ -175,6 +175,7 @@
 
     cursor: pointer;
 
+    color: var(--couleur-secondaire);
     background-color: var(--couleur-principale);
 
     border: 6px solid var(--couleur-principale-sombre-1);
@@ -231,7 +232,8 @@
 .markdown blockquote{
     margin: 0;
     padding: 1em;
-    background-color: #758c8e70;
+    color: #0007;
+    background-color: transparent;
     border-radius: 0.5em;
     border-left: 0.5em solid #758c8e;
 }

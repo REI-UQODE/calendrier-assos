@@ -138,7 +138,7 @@ export class ÉvénementModale extends Modale{
         this.#adresse.textContent       = "adresse"     in contenu? contenu["adresse"]      : "";
         this.#description.innerHTML     = "description" in contenu? Modale.showdownjs.makeHtml(contenu["description"])  : "";
 
-        if("image" in contenu && contenu["image"]){
+        if("image" in contenu && contenu["image"] && contenu["image"].length != 0){
             if (typeof contenu["image"] === "string"){
                 this.#image.src = contenu["image"];
             }else if (Array.isArray(contenu["image"])){
@@ -149,6 +149,9 @@ export class ÉvénementModale extends Modale{
             }else{
                 throw new Error("L'image n'a pas pus être chargée, car son URL est mal formée.")
             }
+        }else{
+            this.#image.src = "";
+            this.appelerMiseÀJourEnsembleSrc = () => this.miseÀJourImageEnsembleSrc(null);
         }
 
         if ("lien-inscription" in contenu && contenu["lien-inscription"]){

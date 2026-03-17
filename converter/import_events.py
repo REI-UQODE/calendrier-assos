@@ -158,11 +158,11 @@ def main():
                 img_rel = None
 
             lien_inscription = None
-            mots = re.findall(r"(!?\[.*]\()?https?:\/\/.+\)?",desc)
+            mots = re.findall(r"(?:!?\[.*\]\()?https?:\/\/.+",desc)
             if mots:
                 for m in mots:
                     if not m.startswith('!'):
-                        lien_inscription = m
+                        lien_inscription = re.match(r"https?:\/\/[^\)]+",m).string
 
             e = {
                 "id":     str(counter),

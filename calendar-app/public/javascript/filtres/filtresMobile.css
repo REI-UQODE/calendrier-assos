@@ -1,15 +1,15 @@
 #filtres {
     display: flex;
     align-items: center;
-    padding: 1rem;
-    margin: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
     width: 100%;
 
-    border: 6px solid var(--fc-button-bg-color);
-    border-radius: 16px;
-    background-color: var(--couleur-ombre);
+    font-size: 1.2em;
 
-    font-size: 2.5em;
+    border: 2px solid var(--fc-button-bg-color);
+    border-radius: 0.5em;
+    background-color: var(--couleur-ombre);
 }
 
 
@@ -18,10 +18,10 @@
     align-items: center;
     justify-content: center;
     padding: 0.5em;
-    margin-right: 1em;
+    margin-right: 0.5em;
     width: fit-content;
 
-    border-radius: 16px;
+    border-radius: 0.5em;
 
     background-color: var(--fc-button-bg-color);
     color: var(--fc-button-text-color);
@@ -42,7 +42,7 @@
     width: fit-content;
     padding: 0.3em;
     margin-right: 1em;
-    border-radius: 10%;
+    border-radius: 0.25em;
 }
 
 .filtres-bouton:hover{

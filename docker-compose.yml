@@ -25,6 +25,7 @@ services:
   
   cloudflare:
     image: cloudflare/cloudflared
+    restart: always
     env_file: .env
     command: "tunnel run"
     networks:

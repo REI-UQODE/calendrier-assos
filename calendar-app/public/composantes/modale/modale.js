@@ -1,5 +1,6 @@
-import { estSurMobile } from "/javascript/plateforme.js";
-import { luminositéCouleur } from "/javascript/utilitaires.js";
+import { mdEnHtml } from "../../javascript/markdown.js";
+import { estSurMobile } from "../../javascript/plateforme.js";
+import { luminositéCouleur } from "../../javascript/utilitaires.js";
 
 export const modaleFerméeEvent = new Event("modaleFerméeEvent");
 
@@ -98,7 +99,7 @@ export class ÉvénementModale extends Modale{
     }
 
     async initContenus(){
-        const modèle = await ÉvénementModale.obtenirModèle("/javascript/modale/ÉvénementModale.html");
+        const modèle = await ÉvénementModale.obtenirModèle("/composantes/modale/ÉvénementModale.html");
         this.emplacement.innerHTML = modèle;
         
         this.#arrièrePlan         = this.emplacement.querySelector("#événement-modale-arrière-plan");
@@ -119,9 +120,9 @@ export class ÉvénementModale extends Modale{
         this.#boutonInscription   = this.emplacement.querySelector("#événement-modale-bouton-inscription");
 
         if (estSurMobile()){
-            this.insérerStyle("/javascript/modale/ÉvénementModaleMobile.css","événement-modale-style");
+            this.insérerStyle("/composantes/modale/ÉvénementModaleMobile.css","événement-modale-style");
         }else{
-            this.insérerStyle("/javascript/modale/ÉvénementModalePC.css","événement-modale-style");
+            this.insérerStyle("/composantes/modale/ÉvénementModalePC.css","événement-modale-style");
         }
 
         new ResizeObserver(() => {this.appelerMiseÀJourEnsembleSrc()}).observe(this.#image);
@@ -219,7 +220,7 @@ export class ImportationModale extends Modale{
     }
 
     async initContenus(){
-        const modèle = await ImportationModale.obtenirModèle("/javascript/modale/ImportationModale.html");
+        const modèle = await ImportationModale.obtenirModèle("/composantes/modale/ImportationModale.html");
         this.emplacement.innerHTML = modèle;
 
         this.#arrièrePlan   = this.emplacement.querySelector("#importation-modale-arrière-plan");
@@ -228,9 +229,9 @@ export class ImportationModale extends Modale{
         this.#liste         = this.emplacement.querySelector("#importation-modale-liste");
 
         if (estSurMobile()){
-            this.insérerStyle("/javascript/modale/ImportationModaleMobile.css");
+            this.insérerStyle("/composantes/modale/ImportationModaleMobile.css");
         }else{
-            this.insérerStyle("/javascript/modale/ImportationModalePC.css");
+            this.insérerStyle("/composantes/modale/ImportationModalePC.css");
         }
 
         this.#conteneur.addEventListener("click", e => e.stopImmediatePropagation());
@@ -242,7 +243,7 @@ export class ImportationModale extends Modale{
         // Extrait la liste d'association de la liste des événement. Ainsi, une association qui n'a pas d'événements n'aura pas de lien d'importation.
         const assocs = Array.from(new Set(événements.map(e => e.extendedProps.association)));
         const domaine = location.protocol+"//"+location.hostname+":"+location.port;
-        const itemModèle = await ImportationModale.obtenirItemModèle("/javascript/modale/CalendrierImporterItem.html");
+        const itemModèle = await ImportationModale.obtenirItemModèle("/composantes/modale/CalendrierImporterItem.html");
         assocs.forEach(asso => {
             if(!(asso in assocColors)){
                 console.error("L'association "+assoc+" n'a pas de couleur associée. Le nom du calendrier correspond-il à la clé du dictionnaire dans 'assoc-colors.json'?");

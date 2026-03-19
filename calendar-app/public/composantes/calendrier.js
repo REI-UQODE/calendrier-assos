@@ -1,5 +1,5 @@
-import { Filtres } from "/javascript/filtres/filtres.js";
-import { ÉvénementModale,ImportationModale } from "/javascript/modale/modale.js"
+import { Filtres } from "./filtres/filtres.js";
+import { ÉvénementModale,ImportationModale } from "./modale/modale.js"
 
 async function trouverURLImage(url){
   if (!url){
@@ -39,14 +39,18 @@ async function trouverURLImage(url){
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Initialise le calendrier FullCalendar
+ * 
+ * @param {ÉvénementModale} événementModale 
+ * @param {Filtres} filtres 
+ */
+export async function initialiserCalendrier(événementModale, filtres, importationModale) {
+
   let eventsData = [];
   let assocColors = {};
   const LOCALE = 'fr-CA';
   const calEl = document.getElementById('calendrier');
-  const événementModale = new ÉvénementModale("événement-fenêtre-modale");
-  const importationModale = new ImportationModale("importation-modale");
-  const filtres = new Filtres();
 
   // Load colors then events
   fetch('/assoc-colors.json', { cache: 'no-store' })
@@ -134,5 +138,5 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(err => console.error('Loading error:', err));
 
     document.getElementById("importation-modale-ouvrir").addEventListener("click", () => importationModale.ouvrir());
-});
+}
 

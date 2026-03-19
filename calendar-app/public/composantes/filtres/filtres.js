@@ -1,5 +1,5 @@
-import { estSurMobile } from "/javascript/plateforme.js";
-import { luminositéCouleur } from "/javascript/utilitaires.js";
+import { estSurMobile } from "../../javascript/plateforme.js";
+import { luminositéCouleur } from "../../javascript/utilitaires.js";
 
 export class Filtres{
     #emplacement = document.getElementById("filtres");
@@ -19,9 +19,9 @@ export class Filtres{
         const style = document.createElement("link");
         style.rel = "stylesheet";
         if(estSurMobile()){
-            style.href = "/javascript/filtres/filtresMobile.css";
+            style.href = "/composantes/filtres/filtresMobile.css";
         }else{
-            style.href = "/javascript/filtres/filtresPC.css";
+            style.href = "/composantes/filtres/filtresPC.css";
         }
         document.getElementsByTagName("head")[0].appendChild(style);
     }

@@ -20,6 +20,7 @@
 	--couleur-ombre: #0003;
 	--couleur-bordure-ombre: var(--couleur-ombre);
 
+	--arrière-plan: radial-gradient(var(--couleur-secondaire), var(--couleur-secondaire-sombre-1));
 	--modale-arrière-plan: #0005;
 
 /*====== FullCalendar =======*/

@@ -48,7 +48,9 @@
     overflow-x: hidden;
     overflow-y: scroll;
 
-    background-image: radial-gradient(var(--couleur-secondaire), var(--couleur-secondaire-sombre-1));
+    background-image: var(--arrière-plan);
+    background-size: cover;
+    background-position: center;
     box-shadow: 0 0 3em var(--couleur-ombre);
 
     @media (max-width: 500px){

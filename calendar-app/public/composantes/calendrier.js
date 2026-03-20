@@ -1,3 +1,4 @@
+import { affichage } from "../javascript/style.js";
 import { Filtres } from "./filtres/filtres.js";
 import { ÉvénementModale,ImportationModale } from "./modale/modale.js"
 
@@ -44,6 +45,7 @@ async function trouverURLImage(url){
  * 
  * @param {ÉvénementModale} événementModale 
  * @param {Filtres} filtres 
+ * @param {ImportationModale} importationModale
  */
 export async function initialiserCalendrier(événementModale, filtres, importationModale) {
 
@@ -64,7 +66,7 @@ export async function initialiserCalendrier(événementModale, filtres, importat
       if (!(data instanceof Array)){
 
         console.error("Le fichier 'events.json' n'est pas bien construit.");
-        filtres.vider();
+        if(filtres){filtres.vider();}
         eventsData = [];
       } else {
 
@@ -79,14 +81,21 @@ export async function initialiserCalendrier(événementModale, filtres, importat
         });
 
         eventsData = eventsData.filter( e => e===null?false:true );
-        filtres.initialiserListe(eventsData, assocColors);
-        importationModale.initListe(eventsData, assocColors);
+        if(filtres){filtres.initialiserListe(eventsData, assocColors);}
+        if(importationModale){importationModale.initListe(eventsData, assocColors);}
       }
 
       // Calendar
+      let vue = "";
+      switch(affichage["fc_mode"]){
+        case "mois": vue = "dayGridMonth"; break;
+        case "semaine": vue = "timeGridWeek"; break;
+        case "jours": vue = "timeGridDay"; break;
+        default: vue = "dayGridMonth"; break;
+      }
       window.calendar = new FullCalendar.Calendar(calEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' },
+        initialView: vue,
+        headerToolbar: affichage["fc_contrôles"]? { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' } : null,
         locale: 'fr',
         firstDay: 1,
         buttonText: { today:'Aujourd’hui', month:'Mois', week:'Semaine', day:'Jour', list:'Liste' },
@@ -96,8 +105,8 @@ export async function initialiserCalendrier(événementModale, filtres, importat
 
         eventSources: [{
           events: (info, success) => {
-            const chosen = filtres.avoirFiltresActifs();
-            success(eventsData.filter(e => chosen.includes(e.extendedProps.association)));
+            const chosen = affichage["filtres"]? filtres.avoirFiltresActifs() : affichage["filtres_défaut"];
+            success(eventsData.filter(e => chosen? chosen.includes(e.extendedProps.association) : true));
           }
         }],
 
@@ -137,6 +146,8 @@ export async function initialiserCalendrier(événementModale, filtres, importat
     })
     .catch(err => console.error('Loading error:', err));
 
-    document.getElementById("importation-modale-ouvrir").addEventListener("click", () => importationModale.ouvrir());
+    if(affichage["btn_importation"]){
+      document.getElementById("importation-modale-ouvrir").addEventListener("click", () => importationModale.ouvrir());
+    }
 }
 

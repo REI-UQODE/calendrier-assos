@@ -1,4 +1,3 @@
-import { mdEnHtml } from "../../javascript/markdown.js";
 import { estSurMobile } from "../../javascript/plateforme.js";
 import { luminositéCouleur } from "../../javascript/utilitaires.js";
 

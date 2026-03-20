@@ -8,7 +8,7 @@ export function rediriger(url){
     return;
   }
   let domaine = location.protocol+"//"+location.hostname+":"+location.port;
-  location.replace(domaine+url);
+  location.replace(domaine+url+location.search);
 }
 
 // Prend un string représentant une couleur et renvoie une liste sur le format RGB 0-255

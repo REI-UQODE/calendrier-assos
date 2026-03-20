@@ -39,7 +39,7 @@
 
     background: repeating-linear-gradient(-45deg, #000 0px, #000 20px, #fff 20px, #fff 40px);
 
-    font-size: 2em;
+    font-size: 0.75em;
 }
 
 #événement-modale-en-tête{
@@ -159,7 +159,9 @@
  * ============
  */
 
-.markdown{}
+.markdown{
+    font-size: 1.25em;
+}
 
 .markdown p {
     margin: 0;

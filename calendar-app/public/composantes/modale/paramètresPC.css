@@ -1,0 +1,108 @@
+#paramètres-modale-ouvrir{
+    font-size: 2em;
+    height: fit-content;
+    padding: 0.2em;
+    
+    background-color: #0003;
+    border: 2px solid var(--fc-button-bg-color);
+    border-radius: 0.25em;
+
+    cursor: pointer;
+}
+
+#paramètres-modale-ouvrir:hover{
+    background-color: #fff3;
+}
+
+#paramètres-modale {
+    display: flex;
+    z-index: 900;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: transparent;
+}
+
+#paramètres-modale-arrière-plan {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modale-arrière-plan);
+}
+
+#paramètres-modale-conteneur {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 2em;
+    max-width: 95vw;
+    min-width: 80vw;
+    overflow-x: hidden;
+    max-height: 95vh;
+    overflow-y: scroll;
+
+    border-radius: 12px;
+
+    background-image: var(--arrière-plan);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 3em var(--couleur-ombre);
+}
+
+#paramètres-modale-en-tête{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+
+    padding : 1rem;
+
+    background-color: var(--couleur-secondaire-sombre-1);
+    border-bottom: 1px solid var(--couleur-bordure-ombre);
+    color: var(--fc-button-bg-color);
+}
+
+#paramètres-modale-onglets{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: scroll;
+}
+
+#paramètres-modale-en-tête button{
+    font-size: 2em;
+    padding: 0.1em;
+    height: fit-content;
+    width: fit-content;
+
+    background-color: transparent;
+    border: 0;
+    color: var(--fc-button-bg-color);
+
+    cursor: pointer;
+}
+
+#paramètres-modale-contenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10em;
+    margin-right: 10em;
+
+    text-align: justify;
+    color: var(--couleur-principale-lum-1);
+}

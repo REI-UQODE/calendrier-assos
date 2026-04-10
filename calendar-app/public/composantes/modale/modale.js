@@ -73,6 +73,42 @@ export class Modale{
     événementÉchap(e){ if(e.key === "Escape") this.fermer(); }
 }
 
+export class ParamètresModale extends Modale{
+    #arrièrePlan = null;
+    #conteneur = null;
+    #enTête = null;
+    #onglets = null;
+    #fermerBouton = null;
+    #contenuDiv = null;
+
+    constructor(id){
+        super(id);
+    }
+
+    async initContenus(){
+        const modèle = Modale.obtenirModèle("/composantes/modale/paramètres.html");
+
+        this.emplacement.innerHTML = modèle;
+
+        this.#arrièrePlan   = this.emplacement.querySelector("#paramètres-modale-arrière-plan");
+        this.#conteneur     = this.emplacement.querySelector("#paramètres-modale-conteneur");
+        this.#enTête        = this.emplacement.querySelector("#paramètres-modale-en-tête");
+        this.#onglets       = this.emplacement.querySelector("#paramètres-modale-onglets");
+        this.#fermerBouton  = this.emplacement.querySelector("#paramètres-modale-fermer");
+        this.#contenuDiv    = this.emplacement.querySelector("#paramètres-modale-contenu");
+
+        if (estSurMobile()){
+            this.insérerStyle("/composantes/modale/paramètresMobile.css","événement-modale-style");
+        }else{
+            this.insérerStyle("/composantes/modale/paramètresPC.css","événement-modale-style");
+        }
+        
+        this.#conteneur.addEventListener("click", e => {e.stopImmediatePropagation();});
+        this.#arrièrePlan.addEventListener("click", () => {this.fermer()});
+        this.#fermerBouton.addEventListener("click", () => {this.fermer()});
+    }
+}
+
 export class ÉvénementModale extends Modale{
     #arrièrePlan = null;
     #conteneur = null;

@@ -162,7 +162,9 @@ def main():
             if mots:
                 for m in mots:
                     if not m.startswith('!'):
-                        lien_inscription = re.match(r"https?:\/\/[^\)]+",m).string
+                        matchs = re.match(r"https?:\/\/[^\)]+",m)
+                        if matchs:
+                            lien_inscription = matchs.string
 
             e = {
                 "id":     str(counter),

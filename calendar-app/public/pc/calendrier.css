@@ -113,3 +113,12 @@ table, td, th {
 .fc-timegrid-axis-cushion {
     font-size: 0.85em;
 }
+
+/*Retirer la barre de défilement*/
+.fc-scroller{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.fc-scroller::-webkit-scrollbar {
+    display: none;
+}

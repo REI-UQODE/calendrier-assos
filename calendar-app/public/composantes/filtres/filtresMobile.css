@@ -32,9 +32,18 @@
 #filtres-liste {
     display: flex;
     overflow-x: scroll;
+    /*Retirer la barre de défilement*/
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
     width: 10px;
     flex-grow: 100;
     padding: 0.5em;
+}
+
+/*Retirer la barre de défilement*/
+#filtres-liste::-webkit-scrollbar {
+    display: none;
 }
 
 .filtres-bouton{

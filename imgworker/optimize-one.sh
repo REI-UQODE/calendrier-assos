@@ -45,8 +45,8 @@ chmod 777 "${rep}/${nom}_${ext}/"
 # Créer le registre de tailles
 echo "création de ${rep}/${nom}_${ext}/tailles.txt"
 registre="${rep}/${nom}_${ext}/tailles.txt"
-touch "$registre"
-chmod 777 "$registre"
+touch "${registre}"
+chmod 777 "${registre}"
 
 # Détecter la taille de l'image
 echo "détection de la taille"
@@ -54,18 +54,18 @@ taille=$(file "$f" | grep -E -o "[^A-Z|a-z] [0-9]+ ?x ?[0-9]+" | sed "s/[, ]*//g
 largeur=$(echo "$taille" | cut -d"x" -f1)
 hauteur=$(echo "$taille" | cut -d"x" -f2)
 n_tailles=$(echo "l($largeur)/l(2)" | bc -l -q | cut -d"." -f1)
-echo "déplacement de ${rep}/${nom}.${ext} vers ${rep}/${nom}_${ext}/${nom}-${largeur}.${ext}"
+echo "déplacement de ${f} vers ${rep}/${nom}_${ext}/${nom}-${largeur}.${ext}"
 ib="${rep}/${nom}_${ext}/${nom}-${largeur}.${ext}"
 mv "$f" "$ib"
-echo $taille > $registre
+echo "${taille}" > "${registre}"
 
 # Optimiser l'image de base
 echo "optimisation"
 case "$ext" in
-  jpg|jpeg) optjpg $ib;;
-  png)      optpng $ib;;
-  gif)      optgif $ib;;
-  webp)     optwebp $ib;;
+  jpg|jpeg) optjpg "$ib";;
+  png)      optpng "$ib";;
+  gif)      optgif "$ib";;
+  webp)     optwebp "$ib";;
   *)        ;;    # unknown -> skip
 esac
 chmod 777 "$ib"
@@ -87,12 +87,12 @@ do
   convert -resize ${largeur_i}x${hauteur_i} "$ib" "$nf"
   # Optimiser l'image
   case "$ext" in
-    jpg|jpeg) optjpg $nf;;
-    png)      optpng $nf;;
-    gif)      optgif $nf;;
-    webp)     optwebp $nf;;
+    jpg|jpeg) optjpg "$nf";;
+    png)      optpng "$nf";;
+    gif)      optgif "$nf";;
+    webp)     optwebp "$nf";;
     *)        ;;    # unknown -> skip
   esac
   chmod 777 "$nf"
-  echo "${largeur_i}x${hauteur_i}" >> $registre
+  echo "${largeur_i}x${hauteur_i}" >> "$registre"
 done

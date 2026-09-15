@@ -255,7 +255,7 @@ export class ImportationModale extends Modale{
     }
 
     async initContenus(){
-        const modèle = await ImportationModale.obtenirModèle("/composantes/modale/ImportationModale.html");
+        const modèle = await ImportationModale.obtenirModèle("/composantes/modale/paramètres_onglets/ImportationModale.html");
         this.emplacement.innerHTML = modèle;
 
         this.#arrièrePlan   = this.emplacement.querySelector("#importation-modale-arrière-plan");
@@ -264,9 +264,9 @@ export class ImportationModale extends Modale{
         this.#liste         = this.emplacement.querySelector("#importation-modale-liste");
 
         if (estSurMobile()){
-            this.insérerStyle("/composantes/modale/ImportationModaleMobile.css");
+            this.insérerStyle("/composantes/modale/paramètres_onglets/ImportationModaleMobile.css");
         }else{
-            this.insérerStyle("/composantes/modale/ImportationModalePC.css");
+            this.insérerStyle("/composantes/modale/paramètres_onglets/ImportationModalePC.css");
         }
 
         this.#conteneur.addEventListener("click", e => e.stopImmediatePropagation());
@@ -278,7 +278,7 @@ export class ImportationModale extends Modale{
         // Extrait la liste d'association de la liste des événement. Ainsi, une association qui n'a pas d'événements n'aura pas de lien d'importation.
         const assocs = Array.from(new Set(événements.map(e => e.extendedProps.association)));
         const domaine = location.protocol+"//"+location.hostname+":"+location.port;
-        const itemModèle = await ImportationModale.obtenirItemModèle("/composantes/modale/CalendrierImporterItem.html");
+        const itemModèle = await ImportationModale.obtenirItemModèle("/composantes/modale/paramètres_onglets/CalendrierImporterItem.html");
         assocs.forEach(asso => {
             if(!(asso in assocColors)){
                 console.error("L'association "+assoc+" n'a pas de couleur associée. Le nom du calendrier correspond-il à la clé du dictionnaire dans 'assoc-colors.json'?");
